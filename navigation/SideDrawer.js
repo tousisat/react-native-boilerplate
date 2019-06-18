@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { Text, View, Image } from "react-native";
 import { createDrawerNavigator } from "react-navigation";
 import {
@@ -83,7 +85,9 @@ const CustomDrawerComponent = props => {
             props
           )}
           <ListItem itemDivider>
-            <Text style={{ color: "grey" }}>Section 3</Text>
+            <Text style={{ color: "grey" }}>
+              Redux Counter: {props.counter}
+            </Text>
           </ListItem>
           {CustomItemsList(
             [
@@ -102,6 +106,12 @@ const CustomDrawerComponent = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    counter: state.firstScreen.counter
+  };
+};
+
 const SideDrawer = createDrawerNavigator(
   {
     First: FirstScreen,
@@ -109,7 +119,7 @@ const SideDrawer = createDrawerNavigator(
     Third: ThirdScreen
   },
   {
-    contentComponent: CustomDrawerComponent
+    contentComponent: connect(mapStateToProps)(CustomDrawerComponent)
   }
 );
 

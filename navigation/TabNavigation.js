@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { createBottomTabNavigator } from "react-navigation";
 
 import { Icon } from "native-base";
@@ -7,7 +9,7 @@ import { Text, View } from "react-native";
 import SignInScreen from "./../screens/SignInScreen";
 import SignUpScreen from "./../screens/SignUpScreen";
 
-const customTabBarLabel = (tintColor, label) => (
+const customTabBarLabel = props => (
   <View
     style={{
       flex: 1,
@@ -15,9 +17,19 @@ const customTabBarLabel = (tintColor, label) => (
       alignItems: "center"
     }}
   >
-    <Text style={{ color: tintColor, fontSize: 12 }}>{label}</Text>
+    <Text style={{ color: props.tintColor, fontSize: 12 }}>
+      {props.label + (props.showCounter ? ": " + props.counter : "")}
+    </Text>
   </View>
 );
+
+const mapStateToProps = state => {
+  return {
+    counter: state.firstScreen.counter
+  };
+};
+
+const CustomTabBarLabel = connect(mapStateToProps)(customTabBarLabel);
 
 const customTabBarIcon = (tintColor, icon, iconType) => (
   <View
@@ -52,9 +64,15 @@ const TabNavigation = createBottomTabNavigator(
       tabBarLabel: ({ tintColor }) => {
         switch (navigation.state.routeName) {
           case "SignIn":
-            return customTabBarLabel(tintColor, "Sign In");
+            return (
+              <CustomTabBarLabel
+                tintColor={tintColor}
+                label="Sign In"
+                showCounter
+              />
+            );
           case "SignUp":
-            return customTabBarLabel(tintColor, "Sign Up");
+            return <CustomTabBarLabel tintColor={tintColor} label="Sign Up" />;
           default:
             return null;
         }

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Provider } from "react-redux";
 import { Platform, StatusBar, View } from "react-native";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppNavigator from "./navigation/AppNavigator";
+import configureStore from "./store/configureStore";
 
 const App = props => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -19,15 +21,17 @@ const App = props => {
     );
   } else {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "black",
-          paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
-        }}
-      >
-        <AppNavigator />
-      </View>
+      <Provider store={configureStore()}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "black",
+            paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
+          }}
+        >
+          <AppNavigator />
+        </View>
+      </Provider>
     );
   }
 };
