@@ -16,15 +16,15 @@ import SecondScreen from "../screens/SecondScreen";
 import ThirdScreen from "./../screens/ThirdScreen";
 
 const CustomItemsList = (itemsArray, props) =>
-  itemsArray.map(({ navId, icon, title }) => (
+  itemsArray.map(({ navId, icon, iconType, title }) => (
     <ListItem key={navId} icon onPress={() => props.navigation.navigate(navId)}>
       <Left>
-        <Icon name={icon} />
+        <Icon name={icon} type={iconType ? iconType : "Ionicons"} />
       </Left>
       <Body>
         <Text
           style={{
-            color: props.activeItemKey === navId ? "blue" : "black"
+            color: props.activeItemKey === navId ? "tomato" : "black"
           }}
         >
           {title}
@@ -78,6 +78,20 @@ const CustomDrawerComponent = props => {
                 navId: "Third",
                 icon: "information-circle",
                 title: "Third Screen"
+              }
+            ],
+            props
+          )}
+          <ListItem itemDivider>
+            <Text style={{ color: "grey" }}>Section 3</Text>
+          </ListItem>
+          {CustomItemsList(
+            [
+              {
+                navId: "Auth",
+                icon: "logout",
+                iconType: "MaterialCommunityIcons",
+                title: "logout"
               }
             ],
             props
