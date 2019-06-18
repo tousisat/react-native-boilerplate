@@ -1,18 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { Col, Grid } from "react-native-easy-grid";
 import { Container, Content } from "native-base";
-import Header from "./../components/Header";
+import DefaultHeader from "./../components/DefaultHeader";
 
 class SecondScreen extends React.Component {
-  static navigationOptions = {
-    drawerLabel: "SecondScreen"
-  };
-
   render() {
     return (
       <Container>
-        <Header title="Second Screen" {...this.props} />
+        <DefaultHeader title="Second Screen" {...this.props} />
         <Content padder>
           <Grid>
             <Col style={{ backgroundColor: "#635DB7", height: 200 }} />

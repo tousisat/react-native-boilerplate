@@ -22,7 +22,7 @@ const App = props => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "red",
+          backgroundColor: "black",
           paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
         }}
       >
